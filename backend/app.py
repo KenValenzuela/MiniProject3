@@ -107,11 +107,13 @@ for _, row in service_counts_df.iterrows():
 app = FastAPI(title="Ride-Hailing Analytics API")
 
 # Add CORS middleware
-# Allow origins from environment variable or default to localhost
-allowed_origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:5173").split(",")
+# Allow origins: Vercel frontend and localhost for development
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins,
+    allow_origins=[
+        "https://frontend-ken-valenzuelas-projects.vercel.app",
+        "http://localhost:5173"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
