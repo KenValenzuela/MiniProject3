@@ -1,0 +1,6 @@
+# Don't ignore the Excel file - we need it!
+__pycache__/
+*.pyc
+.env
+.venv
+

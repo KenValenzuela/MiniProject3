@@ -1,4 +1,5 @@
 import os
+import sys
 import pandas as pd
 import numpy as np
 from fastapi import FastAPI, HTTPException
@@ -25,15 +26,27 @@ for path in excel_paths:
         break
 
 if excel_file is None:
+    # Log all attempted paths for debugging
+    import sys
+    print("ERROR: Could not find ride_hailing.xlsx", file=sys.stderr)
+    print(f"BASE_DIR: {BASE_DIR}", file=sys.stderr)
+    print(f"Attempted paths:", file=sys.stderr)
+    for path in excel_paths:
+        print(f"  - {path} (exists: {os.path.exists(path)})", file=sys.stderr)
     raise FileNotFoundError("Could not find ride_hailing.xlsx in any expected location")
 
 # =========================================================
 # LOAD DATA AT STARTUP
 # =========================================================
-df = pd.read_excel(
-    excel_file,
-    parse_dates=["current_time"]
-)
+try:
+    df = pd.read_excel(
+        excel_file,
+        parse_dates=["current_time"]
+    )
+    print(f"Successfully loaded Excel file from: {excel_file}", file=sys.stderr)
+except Exception as e:
+    print(f"ERROR loading Excel file: {e}", file=sys.stderr)
+    raise
 
 # Use exact column names (no auto-detection)
 # Columns: current_time, slot_id, x, y, reservation_id, rider_id, driver_id, plate_number, service
