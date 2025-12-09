@@ -11,20 +11,27 @@ from typing import List, Dict, Any
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # For Vercel: assets might be in the same directory or parent
 # Try multiple paths to find the Excel file
-ASSETS_DIR = os.path.join(os.path.dirname(BASE_DIR), "assets")
-# Fallback for Vercel deployment structure
-if not os.path.exists(os.path.join(ASSETS_DIR, "ride_hailing.xlsx")):
-    # Try assets in backend directory (Vercel might copy it there)
-    ASSETS_DIR = os.path.join(BASE_DIR, "assets")
-if not os.path.exists(os.path.join(ASSETS_DIR, "ride_hailing.xlsx")):
-    # Try parent directory
-    ASSETS_DIR = os.path.dirname(BASE_DIR)
+excel_paths = [
+    os.path.join(BASE_DIR, "ride_hailing.xlsx"),  # In backend directory (for Vercel)
+    os.path.join(BASE_DIR, "assets", "ride_hailing.xlsx"),  # In backend/assets
+    os.path.join(os.path.dirname(BASE_DIR), "assets", "ride_hailing.xlsx"),  # In parent/assets
+    os.path.join(os.path.dirname(BASE_DIR), "ride_hailing.xlsx"),  # In parent directory
+]
+
+excel_file = None
+for path in excel_paths:
+    if os.path.exists(path):
+        excel_file = path
+        break
+
+if excel_file is None:
+    raise FileNotFoundError("Could not find ride_hailing.xlsx in any expected location")
 
 # =========================================================
 # LOAD DATA AT STARTUP
 # =========================================================
 df = pd.read_excel(
-    os.path.join(ASSETS_DIR, "ride_hailing.xlsx"),
+    excel_file,
     parse_dates=["current_time"]
 )
 

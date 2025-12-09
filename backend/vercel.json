@@ -11,9 +11,6 @@
       "src": "/(.*)",
       "dest": "app.py"
     }
-  ],
-  "includeFiles": [
-    "../assets/ride_hailing.xlsx"
   ]
 }
 
