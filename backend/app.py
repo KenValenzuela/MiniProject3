@@ -9,7 +9,16 @@ from typing import List, Dict, Any
 # SETUP: Get base directory (where this script is located)
 # =========================================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# For Vercel: assets might be in the same directory or parent
+# Try multiple paths to find the Excel file
 ASSETS_DIR = os.path.join(os.path.dirname(BASE_DIR), "assets")
+# Fallback for Vercel deployment structure
+if not os.path.exists(os.path.join(ASSETS_DIR, "ride_hailing.xlsx")):
+    # Try assets in backend directory (Vercel might copy it there)
+    ASSETS_DIR = os.path.join(BASE_DIR, "assets")
+if not os.path.exists(os.path.join(ASSETS_DIR, "ride_hailing.xlsx")):
+    # Try parent directory
+    ASSETS_DIR = os.path.dirname(BASE_DIR)
 
 # =========================================================
 # LOAD DATA AT STARTUP
