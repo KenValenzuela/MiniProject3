@@ -57,6 +57,15 @@ mini-project-3-ken-valenzuela/
 └── README.md                 # This file
 ```
 
+## 🌐 Live Demo
+
+**Live Application:**
+- **Frontend**: https://frontend-ken-valenzuelas-projects.vercel.app
+- **Backend API**: https://miniproject3-ljou.onrender.com
+- **API Documentation**: https://miniproject3-ljou.onrender.com/docs
+
+The application is fully deployed and ready to use!
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -110,7 +119,14 @@ mini-project-3-ken-valenzuela/
    - Backend API: http://localhost:8000
    - API Docs: http://localhost:8000/docs
 
+**Or use the live version:**
+   - Frontend: https://frontend-ken-valenzuelas-projects.vercel.app
+   - Backend API: https://miniproject3-ljou.onrender.com
+   - API Docs: https://miniproject3-ljou.onrender.com/docs
+
 ## 📡 API Endpoints
+
+**Live API Base URL**: https://miniproject3-ljou.onrender.com
 
 The backend provides the following RESTful endpoints:
 
@@ -191,7 +207,8 @@ npm run dev
 
 The frontend:
 - Uses Vite for fast HMR (Hot Module Replacement)
-- Proxy configured for API requests to `http://localhost:8000`
+- Proxy configured for API requests to `http://localhost:8000` (development)
+- Production: Connects to https://miniproject3-ljou.onrender.com
 - React Context for state management
 - Component-based architecture
 
@@ -294,9 +311,10 @@ npm install
 ```
 
 **API connection errors:**
-- Ensure backend is running on port 8000
+- Ensure backend is running on port 8000 (local) or use live API: https://miniproject3-ljou.onrender.com
 - Check CORS settings in `backend/app.py`
-- Verify proxy configuration in `frontend/vite.config.js`
+- Verify proxy configuration in `frontend/vite.config.js` (development only)
+- For production, ensure `VITE_API_BASE_URL` environment variable is set
 
 **Assets not loading:**
 - Ensure assets are in `frontend/public/` directory
@@ -331,5 +349,14 @@ This project is part of a mini-project assignment.
 For questions or issues, please open an issue in the repository.
 
 ---
+
+## 🚀 Deployment
+
+This application is deployed using:
+- **Frontend**: Vercel (https://vercel.com) - React/Vite application
+- **Backend**: Render (https://render.com) - FastAPI/Python application
+- **Repository**: https://github.com/KenValenzuela/MiniProject3
+
+Both services auto-deploy on every push to the `main` branch.
 
 **Last Updated:** December 2024
